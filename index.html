@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Hangout</title>
+
+	<!-- import assets from url  -->
+	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"> 
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> 
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+</head>
+<style>
+	*:focus{outline:none;}.nunito{font-family: 'Nunito', sans-serif;}.rubik{font-family: 'Rubik', sans-serif;}
+	@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+	@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+	@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+	.loading{
+		-webkit-animation:spin 2s linear infinite;
+	    -moz-animation:spin 2s linear infinite;
+	    animation:spin 2s linear infinite;
+	}
+	#scanning{
+		width: 100%;
+		height: 100vh;
+		background: linear-gradient(to top, #0C3359, #111417);
+	}
+	.box{
+		/*background: linear-gradient(to top, rgba(165, 222, 255, 0.3), rgba(255,255,255,0));*/
+		background-color: rgba(12,51,89,0.9);
+		overflow: hidden;
+		border-width: 3px;
+		border-style: solid;
+		border-color: rgba(255,255,255,0.5);
+		/*border-color: linear-gradient(to top, rgba(255,255,255,0.5), rgba(255,255,255,0));*/
+		border-image-source: l/*inear-gradient(to top, rgba(255,255,255,0.5), rgba(255,255,255,0));
+		border-image-slice: 0;*/
+	}
+	.box>div{
+		background: linear-gradient(to top, rgba(165, 222, 255, 0.3), rgba(255,255,255,0));
+		/*-webkit-filter: blur(42px);*/
+		/*filter: blur(42px);*/
+	}
+	.t-1{color:#45BFE4;}
+	.round-20{border-radius: 20px !important}
+	.round-30{border-radius: 30px !important}
+	.act{
+		position: relative;
+		color:#45BFE4;
+	}
+	.act:after{
+		position: absolute;
+		top: 38px;
+		left: 50%;
+		transform: translate(-50%, 0%);
+		width: 8px;
+		height: 8px;
+		border-radius: 100%;
+		clear:both;
+		content:'';
+		display: table;
+		background:#45BFE4;
+	}
+	.search{
+		color: rgba(17, 20, 23, 0.7);
+	}
+	.bg-theme{background-color: #111417;)}
+	.bg-theme-30{background-color: rgba(17,20,23,0.3);}
+	.text-theme{color: #111417;}
+
+	/*swiper*/
+	.swiper-container {
+      width: 100%;
+      /*height: 100%;*/
+    }
+
+    .swipe-12 .swiper-slide {
+    	width: 12rem;
+    	height: 16rem;
+    }
+
+    .swipe-14 .swiper-slide {
+    	width: 14rem;
+    	height: 16rem;
+      /*text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      /*display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;*/*/
+    }
+    .swipe-auto .swiper-slide{
+    	width:auto;
+    }
+</style>
+<body>
+<div class="hidden sm:block">
+	<div class="flex items-center justify-center w-full h-screen bg-gray-100">
+		<div class="text-gray-400 nunito text-xl">
+			<div class="text-center"><i class="fa fa-mobile fa-2x"></i></div>
+			Open in mobile device
+		</div>
+	</div>
+</div>
+<div class="block sm:hidden">
+	
+	<!-- splash screen -->
+	<section id="splash-screen">
+		<div class="fixed left-1/2 transform -translate-x-1/2 mt-14 nunito">
+			<div class="text-6xl text-white font-black">Hangoütkh</div>
+			<div class="text-xl text-white font-bold mt-2">find your place for hangout here</div>
+			<div class="flex flex-row mt-4">
+				<div class="w-2/3 h-1 bg-white rounded-full"></div>
+				<div class="w-4"></div>
+				<div class="w-1/3 h-1 bg-white rounded-full"></div>
+			</div>
+		</div>
+
+		<img src="img/dylann-hendricks-7cHelvNF9ng-unsplash.jpg" alt="splash screen" class="w-full h-screen object-cover">
+	</section>
+
+
+	<section id="scanning" class="hidden z-40">
+		<div class="absolute top-0 left-0 w-full h-screen overflow-auto py-8 px-8 z-10">
+			<div class="flex flex-row items-center pb-4 border-b border-white border-opacity-40">
+				<button class="py-3 px-5 rounded-lg text-2xl bg-white bg-opacity-20" onclick="exit()"><i class="fa fa-chevron-left text-white"></i></button>
+				<div class="flex-grow text-white nunito text-xl font-bold text-center text-opacity-80">
+					Scanning...
+				</div>
+				<img src="img/loading.png" alt="loading" class="loading w-8 h-8">
+			</div>
+			<div class="py-4 text-center text-white text-2xl text-white text-opacity-80 font-bold">Tangerang Indonesia</div>
+			<div class="flex flex-row items-center justify-center relative">
+				<div class="absolute top-0 right-0 text-white my-2 mr-12 p-w bg-theme-30 p-2 rounded-lg z-20 text-xs"><i class="fa fa-city mr-2"></i>City</div>
+				<img src="img/philip-marsh-bo5rCwIEAYY-unsplash.jpg" alt="image" class="w-48 h-48 round-20 z-10">
+				<div class="box w-56 h-48 absolute z-0 round-20 top-14">
+					<div class="w-full h-full flex items-end">
+						<div class="flex p-4 justify-between w-full">
+							<div class="nunito text-md font-medium text-white">Hazardous tower</div>
+							<div class="text-right t-1">4.9 <i class="fa fa-star"></i></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mt-16 nunito font-bold text-md">
+				<center>
+					<a href="#" class="inline-block text-white py-2 px-3 act">About</a>
+					<a href="#" class="inline-block text-white py-2 px-3 opacity-80">Price</a>
+					<a href="#" class="inline-block text-white py-2 px-3 opacity-80">Insurance</a>
+				</center>
+			</div>
+			<div class="nunito font-bold text-white opacity-80 mt-6 text-md">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim lobortis ac neque nunc, augue neque mauris felis.
+			</div>
+			<div class="mt-4 mb-8 w-full bg-gray-400 bg-opacity-70 round-30 p-5">
+				<div class="flex w-full items-center bg-gray-400 bg-opacity-70 round-20">
+					<i class="fa fa-map-marker-alt text-2xl p-4 text-white text-opacity-50"></i>
+					<div class="flex-grow text-sm">
+						<div class="text-white text-opacity-80">Your Location</div>
+						<div class="text-white text-opacity-90">Indonesia, Kab, Tangerang</div>
+					</div>
+				</div>
+				<div class="mt-2 py-2 border-t border-white border-opacity-30 flex justify-between">
+					<button class="px-6 py-2 border-2 border-blue-400 round-20 text-white nunito font-medium text-sm">$69.69</button>
+					<button class="px-6 py-2 border-2 border-blue-400 round-20 text-white nunito font-medium text-sm bg-blue-400">Order Now</button>
+				</div>
+			</div>
+		</div>
+		<img src="img/philip-marsh-bo5rCwIEAYY-unsplash.jpg" alt="bg-1" class="w-full h-screen object-cover opacity-60">
+	</section>
+
+	<section id="home" class="">
+		<div class="p-8 w-full h-screen overflow-auto">
+			<div class="flex flex-row justify-between">
+				<div class="w-2/3 relative">
+					<i class="fa fa-map-marker-alt text-blue-400 text-xl absolute top-0 left-0 p-3"></i>
+					<input type="search" placeholder="Search..." value="Tangerang Indonesia" class="w-full bg-blue-100 px-2 py-3 nunito round-20 search pl-9 font-bold text-sm">
+				</div>
+				<div class="relative w-12 h-12 bg-gray-100 overflow-hidden round-20 shadow-sm border border-white">
+					<img src="img/profil.png" alt="avatar" class="absolute top-1/2 left-1/2" style="transform:translate(-50%,-35%) scale(1.6)">
+				</div>
+			</div>
+
+			<div class="my-6 text-3xl rubik font-medium text-theme">
+				Discover<br/>world with us!
+			</div>
+
+			<div class="relative">
+				<input type="search" placeholder="Search for places..." class="bg-blue-100 p-4 round-20 nunito w-full search font-bold pr-14 text-md">
+				<i class="fa fa-search text-2xl absolute top-0 right-0 text-blue-400 p-4"></i>
+			</div>
+
+			<div class="flex flex-row mt-6 justify-between">
+				<div class="nunito font-black text-xl text-theme">Favorite Places</div>
+				<a href="#" class="table text-blue-400 nunito font-bold">See more</a>
+			</div>
+
+			<div class="my-4">
+				<!-- Swiper -->
+				<div class="swiper-container swipe-14">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="w-56 h-56 round-20 shadow-xl relative overflow-hidden">
+								<div class="absolute top-0 right-0 text-white my-2 mr-2 p-w bg-theme-30 p-2 rounded-lg z-20 text-xs"><i class="fa fa-tree mr-2"></i>Park</div>
+								<img src="img/chris-mok-cr-mok-eL6uf4BwKbc-unsplash.jpg" alt="img-1" class="w-56 h-56">
+								<div class="absolute bottom-0 left-0 w-full p-4">
+									<div class="bg-white bg-opacity-90 rounded-xl p-3">
+										<div class="nunito font-bold text-lg">Thamrin Park</div>
+										<div class="text-theme opacity-60 text-md"><i class="fa fa-map-marker-alt"></i> Tangerang</div>
+										<div class="flex flex-row justify-between items-end mt-4">
+											<div class="nunito text-sm opacity-60 font-bold">8.3 km</div>
+											<button class="px-3 py-2 bg-blue-400 rounded-xl text-white nunito font-bold" onclick="scanning()">Detail</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="w-56 h-56 round-20 shadow-xl relative overflow-hidden">
+								<div class="absolute top-0 right-0 text-white my-2 mr-2 p-w bg-theme-30 p-2 rounded-lg z-20 text-xs"><i class="fa fa-tree mr-2"></i>Park</div>
+								<img src="img/chris-mok-cr-mok-eL6uf4BwKbc-unsplash.jpg" alt="img-1" class="w-56 h-56">
+								<div class="absolute bottom-0 left-0 w-full p-4">
+									<div class="bg-white bg-opacity-90 rounded-xl p-3">
+										<div class="nunito font-bold text-lg">Thamrin Park</div>
+										<div class="text-theme opacity-60 text-md"><i class="fa fa-map-marker-alt"></i> Tangerang</div>
+										<div class="flex flex-row justify-between items-end mt-4">
+											<div class="nunito text-sm opacity-60 font-bold">8.3 km</div>
+											<button class="px-3 py-2 bg-blue-400 rounded-xl text-white nunito font-bold" onclick="scanning()">Detail</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="w-56 h-56 round-20 shadow-xl relative overflow-hidden">
+								<div class="absolute top-0 right-0 text-white my-2 mr-2 p-w bg-theme-30 p-2 rounded-lg z-20 text-xs"><i class="fa fa-tree mr-2"></i>Park</div>
+								<img src="img/chris-mok-cr-mok-eL6uf4BwKbc-unsplash.jpg" alt="img-1" class="w-56 h-56">
+								<div class="absolute bottom-0 left-0 w-full p-4">
+									<div class="bg-white bg-opacity-90 rounded-xl p-3">
+										<div class="nunito font-bold text-lg">Thamrin Park</div>
+										<div class="text-theme opacity-60 text-md"><i class="fa fa-map-marker-alt"></i> Tangerang</div>
+										<div class="flex flex-row justify-between items-end mt-4">
+											<div class="nunito text-sm opacity-60 font-bold">8.3 km</div>
+											<button class="px-3 py-2 bg-blue-400 rounded-xl text-white nunito font-bold" onclick="scanning()">Detail</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="w-56 h-56 round-20 shadow-xl relative overflow-hidden">
+								<div class="absolute top-0 right-0 text-white my-2 mr-2 p-w bg-theme-30 p-2 rounded-lg z-20 text-xs"><i class="fa fa-tree mr-2"></i>Park</div>
+								<img src="img/chris-mok-cr-mok-eL6uf4BwKbc-unsplash.jpg" alt="img-1" class="w-56 h-56">
+								<div class="absolute bottom-0 left-0 w-full p-4">
+									<div class="bg-white bg-opacity-90 rounded-xl p-3">
+										<div class="nunito font-bold text-lg">Thamrin Park</div>
+										<div class="text-theme opacity-60 text-md"><i class="fa fa-map-marker-alt"></i> Tangerang</div>
+										<div class="flex flex-row justify-between items-end mt-4">
+											<div class="nunito text-sm opacity-60 font-bold">8.3 km</div>
+											<button class="px-3 py-2 bg-blue-400 rounded-xl text-white nunito font-bold" onclick="scanning()">Detail</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="swiper-container swipe-auto h-12">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<a href="#" class="text-theme py-2">New</a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#" class="text-blue-400 py-2 act">Most viewed</a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#" class="text-theme py-2">Hot tours</a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#" class="text-theme py-2">Popular</a>
+					</div>
+					<div class="swiper-slide">
+						<a href="#" class="text-theme py-2">All</a>
+					</div>
+				</div>
+			</div>
+			<div class="swiper-container swipe-12 mb-8">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="relative overflow-hidden h-64 w-48 round-20">
+							<div class="absolute top-0 right-0 text-white my-2 mr-2 p-w bg-theme-30 p-2 rounded-lg z-20 text-xs"><i class="fa fa-city mr-2"></i>City</div>
+							<img src="img/matthew-waring-aImvp9jG0PM-unsplash.jpg" alt="img-2" class="h-64 w-48">
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="relative overflow-hidden h-64 w-48 round-20">
+							<div class="absolute top-0 right-0 text-white my-2 mr-2 p-w bg-theme-30 p-2 rounded-lg z-20 text-xs"><i class="fa fa-city mr-2"></i>City</div>
+							<img src="img/matthew-waring-aImvp9jG0PM-unsplash.jpg" alt="img-2" class="h-64 w-48">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</div>
+<script>
+	var splash = setInterval(function() {
+		document.querySelector('#splash-screen').classList.add('hidden')
+		clearInterval(splash)
+	}, 5000)
+
+	function scanning() {
+		document.querySelector('#home').classList.add('hidden')
+		document.querySelector('#scanning').classList.remove('hidden')
+	}
+
+	function exit() {
+		document.querySelector('#home').classList.remove('hidden')
+		document.querySelector('#scanning').classList.add('hidden')	
+	}
+
+    var swiper = new Swiper('.swiper-container', {
+    	slidesPerView: 'auto',
+    	slidesPerGroup: 1,
+    	// centeredSlides: true,
+    	// slidesPerView: 2,
+    	spaceBetween: 20,
+    	// centeredSlides: true,
+    });
+
+    var swiper = new Swiper('.swiper-container-menu', {
+    	slidesPerView: 'auto',
+    	// freeMode: true,
+    });
+</script>
+
+</body>
+</html>
